@@ -5,6 +5,7 @@ import java.util.List;
 import org.neodatis.odb.ODB;
 import org.neodatis.odb.ODBFactory;
 import org.neodatis.odb.core.query.IQuery;
+import org.neodatis.odb.core.query.criteria.ICriterion;
 import org.neodatis.odb.core.query.criteria.Where;
 import org.neodatis.odb.impl.core.query.criteria.CriteriaQuery;
 
@@ -22,6 +23,14 @@ public class Sport {
     }
 
     public Sport(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -86,9 +95,13 @@ public class Sport {
         }
     }
 
+    /**
+     * Amosa o nome de todos os deportes, xogadores e fechas
+     * @throws Exception
+     */
     public void displaySports() throws Exception {
         // Open the database
-        ODB odb = ODBFactory.open(ODB_NAME);
+        odb = ODBFactory.open(ODB_NAME);
         // Get all object of type Sport
         org.neodatis.odb.Objects<Sport> sports = odb.getObjects(Sport.class);
         // display each object
@@ -120,52 +133,63 @@ public class Sport {
         odb.close();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    
     /**
      * Amosar o nome de todos os deportes
      */
-    public void amosaDeportes(){
-        ODB odb = ODBFactory.open(ODB_NAME);
+    public void amosaDeportes() {
+        odb = ODBFactory.open(ODB_NAME);
         IQuery select = new CriteriaQuery(Sport.class);
-        
-        
+
         org.neodatis.odb.Objects<Sport> sports = odb.getObjects(select);
 
         while (sports.hasNext()) {
-           // Sport sport = sports.next();
+            // Sport sport = sports.next();
             System.out.println("Sport: " + sports.next());
         }
         odb.close();
     }
     
     /**
+     * Amosa o nome de xogador, nome do seu deporte 
+     * favorito e o seu salario
+     */
+    public void consultaXogadores(){
+        odb = ODBFactory.open(ODB_NAME);
+        IQuery query = new CriteriaQuery(Sport.class);
+        Sport volleyBall = (Sport) odb.getObjects(query).getFirst();
+        Sport tennis = (Sport) odb.getObjects(query).getFirst();
+        query = new CriteriaQuery(Player.class, Where.equal("favoriteSport", volleyBall));
+        org.neodatis.odb.Objects<Player> players = odb.getObjects(query);
+
+        int i =1;
+        while(players.hasNext()){
+            Player play = players.next();
+           
+            System.out.println((i++)+"." + play.getName() + " " + play.getFavoriteSport() + " " + play.getSalario());
+        }
+    }
+
+    /**
      * Cambiar o nome dun xogador que teña por nome x
      */
-    public void actualizaPorNomePlayer(){
-        ODB odb = ODBFactory.open(ODB_NAME);
-        IQuery update = new CriteriaQuery(Player.class,Where.equal("name", "luis"));
-        
+    public void actualizaPorNomePlayer() {
+        odb = ODBFactory.open(ODB_NAME);
+        IQuery update = new CriteriaQuery(Player.class, Where.equal("name", "luis"));
+
         org.neodatis.odb.Objects<Player> players = odb.getObjects(update);
         Player xogadores = (Player) odb.getObjects(update).getFirst();
+
         xogadores.setName("pepito");
+
         odb.store(xogadores);
         odb.close();
     }
-    
+
     /**
      * Amosar os nomes dos xogadores dun deporte
      */
-    public void xogadoresDeporte(){
-        
+    public void xogadoresDeporte() {
+
     }
-    
-    
 
 }

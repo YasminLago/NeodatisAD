@@ -10,9 +10,10 @@ public class Baseneodatis {
         Sport s = new Sport();
         //s.step1();
         //s.step2();
-        s.displaySports();
+        //s.displaySports();
         //s.amosaDeportes();
-          //s.actualizaPorNomePlayer();
+        //  s.actualizaPorNomePlayer();
+        s.consultaXogadores();
     }
     
 }
