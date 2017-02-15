@@ -16,14 +16,14 @@ public class BaseNeodatis {
         //c.displaySports();
         //c.amosaDeportes();
         //c.consultaXogadores();
-         //c.actualizaPorNomePlayer("luis","pepito");
+        //c.actualizaPorNomePlayer("luis","pepito");
         //c.xogadoresDeporte("tennis");
         //c.devoltarEquiposConXogadoresMenosDunhaCantidade(3000);
         //c.igualaNomesPorDeporte("tennis", "Juanito");
         //c.nativeQueryXogadoresDeporte("volley");
         //c.borraXogadoresPorNome("pepito");
         //c.listarXogadoresPorNomeEDeporte("luis","tennis");
-        c.aumentaSalarioXogadoresEquipo("luis", "Bordeux", 1700);
+        //c.aumentaSalarioXogadoresEquipo("luis", "Bordeux", 1700);
     }
     
 }

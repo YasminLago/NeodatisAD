@@ -310,25 +310,22 @@ public class Consultas {
      */
     public void aumentaSalarioXogadoresEquipo(String xog, String equi, int aumento){
         odb = ODBFactory.open(ODB_NAME);
-        IQuery query1 = odb.criteriaQuery(Player.class, Where.lt("name", xog));
-        org.neodatis.odb.Objects<Player> player = odb.getObjects(query1);
+        IQuery query = odb.criteriaQuery(Player.class, Where.equal("name", xog));
+        org.neodatis.odb.Objects<Player> player = odb.getObjects(query);
+        query = odb.criteriaQuery(Team.class,Where.and().
+                    add(Where.equal("players", player)).
+                    add(Where.equal("name", equi)));
+
         int i = 1;
-        int z = 1;
         while (player.hasNext()) {
             Player play = player.next();
             System.out.println("Player " + (i++) + ": " + play.getName());
-            IQuery query2 = odb.criteriaQuery(Team.class, Where.and().
-                    add(Where.contain("players", play)).
-                    add(Where.equal("name", equi)));
-            play.setSalario(aumento);
-            odb.store(play);
-            System.out.println("Player: " + play.getName() + " " + play.getSalario());
-            org.neodatis.odb.Objects<Team> teams = odb.getObjects(query2);
-            while(teams.hasNext()){
-                Team team = teams.next();
-                System.out.println("Team Player " + (z++) + ": " + team.getName());
+            
+                play.setSalario(aumento);
+                odb.store(play);
+                System.out.println("Player: " + play.getName() + " " + play.getSalario());
             }
-        }
+        
         odb.close();  
     }
 }
