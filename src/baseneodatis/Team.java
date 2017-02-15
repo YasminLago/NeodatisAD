@@ -4,20 +4,21 @@ import java.util.ArrayList;
 
 /**
  *
- * @author oracle
+ * @author Yasmin
  */
 public class Team {
+
     private String name;
-    private ArrayList <Player> players = new ArrayList();
-    
-    public Team(){  
+    private ArrayList<Player> players = new ArrayList();
+
+    public Team() {
     }
-    
-    public Team(String name){
+
+    public Team(String name) {
         this.name = name;
     }
-    
-    public void addPlayer(Player player){
+
+    public void addPlayer(Player player) {
         players.add(player);
     }
 

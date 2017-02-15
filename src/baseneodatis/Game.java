@@ -1,10 +1,10 @@
+
 package baseneodatis;
 
 import java.util.Date;
-
 /**
  *
- * @author oracle
+ * @author Yasmin
  */
 public class Game {
     private Date when;
@@ -58,6 +58,5 @@ public class Game {
     public void setResult(String result) {
         this.result = result;
     }
-    
-    
+
 }
